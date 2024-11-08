@@ -23,8 +23,8 @@ know_prevalence = st.radio("Choose an option:", ("Yes, I know the prevalence", "
 
 # If the user knows the prevalence, use it directly to calculate the posterior probability
 if know_prevalence == "Yes, I know the prevalence":
-        prevalence = st.number_input("Enter the population prevalence (e.g., 0.05 for 5%):", min_value=0.0, max_value=1.0)
-        sensitivity = st.number_input("Enter the test sensitivity (e.g., 0.90 for 90%):", min_value=0.0, max_value=1.0)
+        prevalence = st.number_input("Enter the population prevalence (e.g., 0.05 for 5%):", min_value=0.0, max_value=1.0, step=1e-09)
+        sensitivity = st.number_input("Enter the test sensitivity (e.g., 0.90 for 90%):", min_value=0.0, max_value=1.0,step=1e-09)
 
         # Calculate posterior probability
         if st.button("Calculate Posterior Probability"):
@@ -33,7 +33,7 @@ if know_prevalence == "Yes, I know the prevalence":
 
 # If the user does not know the prevalence, calculate it first, then use it in the posterior calculation
 else:
-        input_prevalence = st.number_input("Enter an alternative prevalence value for calculation (e.g., 0.05 for 5%):", min_value=0.0, max_value=1.0)
+        input_prevalence = st.number_input("Enter an alternative prevalence value for calculation (e.g., 0.05 for 5%):", min_value=0.0, max_value=1.0, step=1e-09)
 
         # Calculate frequency-based prevalence using the freq_port function
         if st.button("Calculate Frequency-Based Prevalence"):
@@ -42,7 +42,7 @@ else:
 
                 # Now, use this prevalence to calculate posterior probability
                 sensitivity = st.number_input("Enter the test sensitivity for posterior calculation (e.g., 0.90 for 90%):", min_value=0.0,
-                                              max_value=1.0)
+                                              max_value=1.0, step=1e-09)
 
                 if st.button("Calculate Posterior Probability with Calculated Prevalence"):
                         posterior_prob = bayes_posterior(calculated_prevalence, sensitivity)
